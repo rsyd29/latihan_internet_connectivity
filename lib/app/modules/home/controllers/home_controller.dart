@@ -1,7 +1,12 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class HomeController extends GetxController {
+  late StreamSubscription subscription, internetSubscription;
+
   final _hasInternet = false.obs;
   final _text = ''.obs;
 
@@ -13,15 +18,24 @@ class HomeController extends GetxController {
 
   get text => _text.value;
 
+  ConnectivityResult connectivityResult = ConnectivityResult.none;
+
   Future<bool> checkInternet() async {
     return await InternetConnectionChecker().hasConnection;
   }
 
-  final count = 0.obs;
-
   @override
   void onInit() {
     super.onInit();
+
+    subscription = Connectivity().onConnectivityChanged.listen((result) {
+      connectivityResult = result;
+    });
+
+    internetSubscription =
+        InternetConnectionChecker().onStatusChange.listen((status) {
+      hasInternet = status == InternetConnectionStatus.connected;
+    });
   }
 
   @override
@@ -30,7 +44,9 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onClose() {}
-
-  void increment() => count.value++;
+  void onClose() {
+    subscription.cancel();
+    internetSubscription.cancel();
+    super.dispose();
+  }
 }
