@@ -8,11 +8,9 @@ environment:
 dependencies: 
   cupertino_icons: ^1.0.2
   get: 4.6.1
-  # check if has internet
   internet_connection_checker: 0.0.1+3
-
-  # display top overlay
   overlay_support: 1.2.1
+  connectivity_plus: 2.1.0
   flutter: 
     sdk: flutter
 
