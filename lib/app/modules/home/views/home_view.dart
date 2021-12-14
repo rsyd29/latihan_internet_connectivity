@@ -11,8 +11,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
-        backgroundColor:
-            (controller.hasInternet) ? Colors.green[300] : Colors.red[300],
+        backgroundColor: (controller.hasInternet) ? Colors.green : Colors.amber,
         appBar: AppBar(
           title: Text('Check Connectivity'),
           centerTitle: true,
@@ -21,14 +20,32 @@ class HomeView extends GetView<HomeController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Connection Status'),
-              Text((controller.connectivityResult == ConnectivityResult.mobile)
-                  ? 'Mobile Network'
-                  : (controller.connectivityResult == ConnectivityResult.wifi)
-                      ? 'Wifi Network'
-                      : 'No Network'),
               Text(
-                  (controller.hasInternet) ? 'Active Internet' : 'No Internet'),
+                'Connection Status',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Text(
+                (controller.connectivityResult == ConnectivityResult.mobile)
+                    ? 'Mobile Network'
+                    : (controller.connectivityResult == ConnectivityResult.wifi)
+                        ? 'Wifi Network'
+                        : 'No Network',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                (controller.hasInternet) ? 'Active Internet' : 'No Internet',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
               ElevatedButton(
                 child: Text('Check Internet'),
                 onPressed: () async {
