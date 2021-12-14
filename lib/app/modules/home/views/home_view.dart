@@ -9,14 +9,16 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Check Connectivity'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Obx(() {
-          return Column(
+    return Obx(() {
+      return Scaffold(
+        backgroundColor:
+            (controller.hasInternet) ? Colors.green[300] : Colors.red[300],
+        appBar: AppBar(
+          title: Text('Check Connectivity'),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Connection Status'),
@@ -76,9 +78,9 @@ class HomeView extends GetView<HomeController> {
                 },
               ),
             ],
-          );
-        }),
-      ),
-    );
+          ),
+        ),
+      );
+    });
   }
 }
